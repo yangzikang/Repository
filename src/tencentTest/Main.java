@@ -5,7 +5,7 @@ public class Main{
  	Scanner in = new Scanner(System.in);
    int nlength = in.nextInt();
    
-   String a = in.nextLine();
+   in.nextLine();
    
    String []strings = new String[nlength];
    for(int i=0;i<nlength;i++){
@@ -13,7 +13,7 @@ public class Main{
    }
    
    int mlength = in.nextInt();
-   a = in.nextLine();
+   in.nextLine();
    String []stringm = new String[mlength];
    for(int i = 0;i<mlength;i++){
    	stringm[i] = in.nextLine();
