@@ -9,6 +9,7 @@ public class Main {
 			Tag tag =  m.getAnnotation(Tag.class);
 			if(tag !=null){
 				System.out.println(m.getName()+ tag.tagName());
+				
 			}
 			
 		}
