@@ -8,13 +8,14 @@ public class Main {
 		int[] numbers = {3,2,1,5,4,6,7};
 		//order(numbers);
 		//BubbleSort_2(numbers);
-		insertion_sort(numbers);
+		//insertion_sort(numbers);
+		MergeSortTest.mergeSort(numbers);
 		print(numbers);
 		
 	}
 	
 	
-	//普通的排序
+	//普通的选择排序
 	public static void order(int[] numbers){
 		for(int i=0;i<numbers.length-1;i++){
 			for(int j=i+1;j<numbers.length;j++){
@@ -60,6 +61,7 @@ public class Main {
 		}
 	}
 	
+	//插入排序
 	static void insertion_sort(int[] unsorted)
     {
         for (int i = 1; i < unsorted.length; i++)
@@ -77,6 +79,8 @@ public class Main {
             }
         }
     }
+	
+	
 	
 	public static void print(int[] numbers){
 		for(int i:numbers){
