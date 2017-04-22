@@ -9,7 +9,9 @@ public class Main {
 		//order(numbers);
 		//BubbleSort_2(numbers);
 		//insertion_sort(numbers);
-		MergeSortTest.mergeSort(numbers);
+		//MergeSortTest.mergeSort(numbers);
+		//Arrays.sort(numbers);
+		FastSort.sort(numbers, 0, numbers.length-1);
 		print(numbers);
 		
 	}
