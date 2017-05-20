@@ -1,0 +1,177 @@
+编程题目备份
+A. 实现函数 strncasecmp() （@see: http://man7.org/linux/man-pages/man3/strcasecmp.3.html）。函数说明如下（以 Java 为例）：
+
+* SYNOPSIS 
+int strncasecmp(char[] s1, char[] s2, int n);
+
+* DESCRIPTION
+The strncasecmp() functions compare the strings s1 and s2, at most n characters.
+ 
+* RETURN VALUES
+The strncasecmp() return an integer greater than, equal to, or less than 0, 
+according as s1 is lexicographically greater than, equal to, or less than s2 after
+translation of each corresponding character to lower-case.  The strings themselves are not modified.
+    
+示例：
+char[] s1 = new char[]{‘1’,‘2’,‘3’,‘4’};
+char[] s2 = new char[]{‘1’,‘2’,‘4’};
+
+strncasecmp(s1,s2,2) == 0
+strncasecmp(s1,s2,3) == -1
+strncasecmp(s1,s2,5) == -1
+
+注：请自行实现比较算法，勿使用 String 之类的工具函数/类。
+
+答：
+	int  strncasecmp(char[] s1, char[] s2, int n){
+		char a[] = s1;
+		char b[] = s2;
+		
+		int shorterLength = a.length<b.length?a.length:b.length;
+		for(int i=0;i<a.length;i++){
+			if(a[i]>='A'&&a[i]<='Z'){
+				a[i]+=32;
+			}
+		}
+		for(int i =0;i<b.length;i++){
+			if(b[i]>='A'&&b[i]<='Z'){
+				b[i]+=32;
+			}
+		}
+		
+		
+		if(n>shorterLength){
+			n = shorterLength; 
+		}
+		
+		for(int i = 0;i<n ;i++){
+			if(a[i]<b[i]){
+				return a[i]-b[i];
+			}
+			else if(a[i]>b[i]){
+				return a[i]-b[i];
+			}
+		}
+		return 0;
+	}
+
+
+---------------------------------------------
+
+B. 实现 atoi() (@see http://man7.org/linux/man-pages/man3/atoi.3.html)函数，将字符串（按十进制）转换成 int 型整数
+    - 请仔细考虑并处理所有可能的输入
+    - 请自行实现转换算法，勿使用 Integer.parseInt() 之类的库函数
+
+答：
+
+int atoi(String s)throws Exception{
+
+	int returnNumber = 0;
+		
+	    if (s == null) {
+	        throw new Exception("String is null");
+	    }
+	    if(s.length() > 10){
+	    	throw new Exception("number is to big");
+	    }
+	    for(int i = s.length()-1;i>=1;i--){
+	    	if(s.charAt(i)<'0'||s.charAt(i)>'9'){
+	    		throw new Exception("string not a number");
+	    	}
+	    	
+	    }
+    	if(s.length() == 10){
+    		if(!(s.charAt(0) == '-')){
+    			throw new Exception("string not a number or string is too big");
+    		}
+    	}
+    	
+    	if(s.charAt(0)=='-'){
+    		for(int i = s.length()-1,j = 1;i>0;i--){
+    			int a  = s.charAt(i)-48;
+    			returnNumber += a * j;
+    			j *= 10;
+    		}
+    		returnNumber = -returnNumber;
+    	}
+    	else{
+    		for(int i = s.length()-1,j = 1;i>=0;i--){
+    			int a  = s.charAt(i)-48;
+    			returnNumber += a * j;
+    			j *= 10;
+    		}
+    	}
+		return returnNumber;	
+	}
+}
+	
+
+
+---------------------------------------------
+
+C. 从中心开始，逆时针打印 n*n 矩阵 
+
+例如：
+[0,1,2,3]
+[4,5,6,7]
+[8,9,10,11]
+[12,13,14,15]
+输出:
+6,5,9,10,11,7,3,2,1,0,4,8,12,13,14,15
+
+
+答：
+
+public class Main {
+	static List l = new ArrayList();
+	
+	public void MatrixInCircle(int[][] array){
+		if(array == null)
+			return;
+		int start = 0;
+		while(array[0].length > start*2 && array.length >start*2){
+			OneCircle(array,start);
+			start++;
+		}
+	}
+	private void OneCircle(int[][] array,int start){
+		int columns = array[0].length;
+		int rows = array.length;
+		int endX = columns - 1 - start;
+		int endY = rows - 1 - start;
+		for(int i = start;i <= endX ;i++){
+			int number = array[start][i];
+			l.add(number);
+		}
+		if(start <endY){
+			for(int i = start +1;i<=endY;i++){
+				int number = array[i][endX];
+				l.add(number);
+
+			}
+		}
+		if(start < endX && start < endY){
+			for(int i = endX -1;i>=start;i--){
+				int number = array[endY][i];
+				l.add(number);
+
+			}
+		}
+		if(start <endY && start <endY -1){
+			for(int i =endY -1;i>=start+1;i--){
+				int number = array[i][start];
+				l.add(number);
+
+			}
+		}
+	}
+	public static void main(String[]args){
+		int[][] arr={{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+		
+		Main test = new Main();
+		test.MatrixInCircle(arr);
+		for(int i = l.size()-1;i>=0;i--){
+			System.out.println(l.remove(i));
+		}
+	}
+}
